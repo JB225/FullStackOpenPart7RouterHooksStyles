@@ -4,16 +4,17 @@ import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import NewBlogForm from './components/NewBlogForm'
 import Togglable from './components/Togglable'
-import ErrorNotification from './components/ErrorNotification'
-import SuccessNotification from './components/SuccessNotification'
+import SuccessNotification from './components/Notification'
 
 import blogService from './services/blogs'
 import loginService from './services/login'
+import { useDispatch } from 'react-redux'
+import { setNotification } from './reducers/notificationReducer'
 
 const App = () => {
+  const dispatch = useDispatch()
+
   const [blogs, setBlogs] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [successMessage, setSucessMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -47,10 +48,9 @@ const App = () => {
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
     } catch (exception) {
       console.log(exception)
-      setErrorMessage('wrong username or password')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      dispatch(setNotification(
+        { message: 'wrong username or password',
+          success: false }))
     }
 
     setPassword('')
@@ -69,17 +69,13 @@ const App = () => {
       const newBlogReturn = await blogService.createNewBlog(newBlog)
       setBlogs(blogs.concat(newBlogReturn))
 
-      setSucessMessage(
-        `a new blog ${newBlog.title} by ${newBlog.author} added`,
-      )
-      setTimeout(() => {
-        setSucessMessage(null)
-      }, 5000)
+      dispatch(setNotification(
+        { message: `a new blog ${newBlog.title} by ${newBlog.author} added`,
+          success: true }))
     } catch (exception) {
-      setErrorMessage('New blog could not be created')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      dispatch(setNotification(
+        { message: 'New blog could not be created',
+          success: false }))
     }
   }
 
@@ -108,7 +104,6 @@ const App = () => {
           setUsername={setUsername}
           password={password}
           setPassword={setPassword}
-          errorMessage={errorMessage}
         />
       </div>
     )
@@ -117,8 +112,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <SuccessNotification message={successMessage} />
-      <ErrorNotification message={errorMessage} />
+      <SuccessNotification />
       <p>
         {user.name} is logged in <button onClick={handleLogout}>logout</button>
       </p>

@@ -1,4 +1,4 @@
-import ErrorNotification from "./ErrorNotification";
+import SuccessNotification from './Notification'
 
 const LoginForm = ({
   handleLogin,
@@ -11,10 +11,10 @@ const LoginForm = ({
   return (
     <div>
       <h2>Log in to application</h2>
-      <ErrorNotification message={errorMessage} />
+      <SuccessNotification />
       <form onSubmit={handleLogin}>
         <div>
-          username{" "}
+          username{' '}
           <input
             id="username"
             type="text"
@@ -24,7 +24,7 @@ const LoginForm = ({
           />
         </div>
         <div>
-          password{" "}
+          password{' '}
           <input
             id="password"
             type="text"
@@ -38,7 +38,7 @@ const LoginForm = ({
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

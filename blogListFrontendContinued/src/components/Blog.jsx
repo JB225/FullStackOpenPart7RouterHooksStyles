@@ -1,24 +1,24 @@
-import { useState } from "react";
-import blogService from "../services/blogs";
+import { useState } from 'react'
+import blogService from '../services/blogs'
 
 const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
-  const [blogShown, setBlogShown] = useState(false);
-  const ShowWhenBlogShown = { display: blogShown ? "" : "none" };
+  const [blogShown, setBlogShown] = useState(false)
+  const ShowWhenBlogShown = { display: blogShown ? '' : 'none' }
   const showDeleteButton = {
-    display: username === blog.user.username ? "" : "none",
-  };
+    display: username === blog.user.username ? '' : 'none',
+  }
 
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: "solid",
+    border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-  };
+  }
 
   const toggleShowFullBlog = () => {
-    setBlogShown(!blogShown);
-  };
+    setBlogShown(!blogShown)
+  }
 
   const handleLikeBlog = async () => {
     const updatedBlog = {
@@ -27,24 +27,24 @@ const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
       author: blog.author,
       title: blog.title,
       url: blog.url,
-    };
+    }
 
-    handleUpdatedBlog(blog.id, updatedBlog);
-  };
+    handleUpdatedBlog(blog.id, updatedBlog)
+  }
 
   const handleDeleteBlog = async () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      blogService.deleteBlog(blog.id);
-      handleDeletedBlog(blog.id);
+      blogService.deleteBlog(blog.id)
+      handleDeletedBlog(blog.id)
     }
-  };
+  }
 
   return (
     <div className="blog" style={blogStyle}>
       <div>
-        {blog.title}, {blog.author}{" "}
+        {blog.title}, {blog.author}{' '}
         <button onClick={toggleShowFullBlog}>
-          {blogShown ? "hide" : "view"}
+          {blogShown ? 'hide' : 'view'}
         </button>
       </div>
       <div style={ShowWhenBlogShown} className="shownOnlyWhenShowTrue">
@@ -64,7 +64,7 @@ const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

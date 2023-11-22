@@ -8,7 +8,7 @@ import SuccessNotification from './components/Notification'
 
 import blogService from './services/blogs'
 import loginService from './services/login'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 import { initialiseBlogs } from './reducers/blogReducer'
 
@@ -26,9 +26,11 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
   }, [])
 
-  // useEffect(() => {
-  //   dispatch(initialiseBlogs())
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(initialiseBlogs())
+  }, [dispatch])
+  const blogs2 = useSelector(state => state.blogs)
+  console.log(blogs2)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')

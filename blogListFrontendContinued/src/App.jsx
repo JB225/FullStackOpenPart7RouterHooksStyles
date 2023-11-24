@@ -10,27 +10,26 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
-import { initialiseBlogs } from './reducers/blogReducer'
+import { createBlog, initialiseBlogs } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
 
-  const [blogs, setBlogs] = useState([])
+  // const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   const blogFormRef = useRef()
 
-  useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
-  }, [])
+  // useEffect(() => {
+  //   blogService.getAll().then((blogs) => setBlogs(blogs))
+  // }, [])
 
   useEffect(() => {
     dispatch(initialiseBlogs())
   }, [dispatch])
-  const blogs2 = useSelector(state => state.blogs)
-  console.log(blogs2)
+  const blogs = useSelector(state => state.blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -74,7 +73,9 @@ const App = () => {
     try {
       blogFormRef.current.toggleVisibility()
       const newBlogReturn = await blogService.createNewBlog(newBlog)
-      setBlogs(blogs.concat(newBlogReturn))
+      dispatch(createBlog(newBlogReturn))
+      // blogs = blogs.concat(newBlogReturn)
+      // setBlogs(blogs.concat(newBlogReturn))
 
       dispatch(setNotification(
         { message: `a new blog ${newBlog.title} by ${newBlog.author} added`,
@@ -94,12 +95,12 @@ const App = () => {
     const updatedBlogs = blogs.map((blog) =>
       blog.id === updatedBlogResponse.id ? updatedBlogResponse : blog,
     )
-    setBlogs(updatedBlogs)
+    // setBlogs(updatedBlogs)
   }
 
   const handleDeletedBlog = async (deletedBlogId) => {
     const updatedBlogs = blogs.filter((blog) => blog.id !== deletedBlogId)
-    setBlogs(updatedBlogs)
+    // setBlogs(updatedBlogs)
   }
 
   if (user === null) {

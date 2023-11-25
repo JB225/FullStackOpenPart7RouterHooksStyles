@@ -10,7 +10,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
-import { createBlog, initialiseBlogs } from './reducers/blogReducer'
+import { createBlog, deleteBlog, increaseLikes, initialiseBlogs } from './reducers/blogReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -26,10 +26,10 @@ const App = () => {
   //   blogService.getAll().then((blogs) => setBlogs(blogs))
   // }, [])
 
+  const blogs = useSelector(state => state.blogs)
   useEffect(() => {
     dispatch(initialiseBlogs())
   }, [dispatch])
-  const blogs = useSelector(state => state.blogs)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
@@ -72,8 +72,8 @@ const App = () => {
   const handleCreateNewBlog = async (newBlog) => {
     try {
       blogFormRef.current.toggleVisibility()
-      const newBlogReturn = await blogService.createNewBlog(newBlog)
-      dispatch(createBlog(newBlogReturn))
+      // const newBlogReturn = await blogService.createNewBlog(newBlog)
+      dispatch(createBlog(newBlog))
       // blogs = blogs.concat(newBlogReturn)
       // setBlogs(blogs.concat(newBlogReturn))
 
@@ -87,19 +87,21 @@ const App = () => {
     }
   }
 
-  const handleUpdatedBlog = async (blogId, updatedBlog) => {
-    const updatedBlogResponse = await blogService.updateBlog(
-      blogId,
-      updatedBlog,
-    )
-    const updatedBlogs = blogs.map((blog) =>
-      blog.id === updatedBlogResponse.id ? updatedBlogResponse : blog,
-    )
+  const handleUpdatedBlog = async (updatedBlog) => {
+    // const updatedBlogResponse = await blogService.updateBlog(
+    //   blogId,
+    //   updatedBlog,
+    // )
+    // const updatedBlogs = blogs.map((blog) =>
+    //   blog.id === updatedBlogResponse.id ? updatedBlogResponse : blog,
+    // )
     // setBlogs(updatedBlogs)
+    dispatch(increaseLikes(updatedBlog))
   }
 
   const handleDeletedBlog = async (deletedBlogId) => {
-    const updatedBlogs = blogs.filter((blog) => blog.id !== deletedBlogId)
+    dispatch(deleteBlog(deletedBlogId))
+    // const updatedBlogs = blogs.filter((blog) => blog.id !== deletedBlogId)
     // setBlogs(updatedBlogs)
   }
 

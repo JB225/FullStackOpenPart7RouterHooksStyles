@@ -21,20 +21,20 @@ const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
   }
 
   const handleLikeBlog = async () => {
-    const updatedBlog = {
-      user: blog.user.id,
-      likes: blog.likes + 1,
-      author: blog.author,
-      title: blog.title,
-      url: blog.url,
-    }
+    // const updatedBlog = {
+    //   user: blog.user.id,
+    //   likes: blog.likes + 1,
+    //   author: blog.author,
+    //   title: blog.title,
+    //   url: blog.url,
+    // }
 
-    handleUpdatedBlog(blog.id, updatedBlog)
+    handleUpdatedBlog(blog)
   }
 
   const handleDeleteBlog = async () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      blogService.deleteBlog(blog.id)
+      // blogService.deleteBlog(blog.id)
       handleDeletedBlog(blog.id)
     }
   }

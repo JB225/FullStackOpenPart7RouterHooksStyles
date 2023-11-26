@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
+import { useDispatch } from 'react-redux'
+import { deleteBlog, increaseLikes } from '../reducers/blogReducer'
 
-const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
+const Blog = ({ blog, username }) => {
+  const dispatch = useDispatch()
   const [blogShown, setBlogShown] = useState(false)
   const ShowWhenBlogShown = { display: blogShown ? '' : 'none' }
   const showDeleteButton = {
@@ -21,21 +23,12 @@ const Blog = ({ blog, username, handleUpdatedBlog, handleDeletedBlog }) => {
   }
 
   const handleLikeBlog = async () => {
-    // const updatedBlog = {
-    //   user: blog.user.id,
-    //   likes: blog.likes + 1,
-    //   author: blog.author,
-    //   title: blog.title,
-    //   url: blog.url,
-    // }
-
-    handleUpdatedBlog(blog)
+    dispatch(increaseLikes(blog))
   }
 
   const handleDeleteBlog = async () => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      // blogService.deleteBlog(blog.id)
-      handleDeletedBlog(blog.id)
+      dispatch(deleteBlog(blog.id))
     }
   }
 

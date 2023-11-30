@@ -6,6 +6,7 @@ import { setUser } from '../reducers/currentUserReducer'
 import Blog from './Blog'
 import NewBlogForm from './NewBlogForm'
 import Notification from './Notification'
+import Header from './Header'
 
 const BlogList = () => {
   const dispatch = useDispatch()

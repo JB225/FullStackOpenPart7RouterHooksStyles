@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <p> {user === null ? '' : user.name} {console.log(user)} is logged in <button onClick={handleLogout}>logout</button> </p>
+      <p> {user === null ? '' : user.name} is logged in <button onClick={handleLogout}>logout</button> </p>
     </div>
   )
 }

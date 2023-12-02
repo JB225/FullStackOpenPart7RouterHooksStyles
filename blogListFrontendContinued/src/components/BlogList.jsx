@@ -6,7 +6,6 @@ import { setUser } from '../reducers/currentUserReducer'
 import Blog from './Blog'
 import NewBlogForm from './NewBlogForm'
 import Notification from './Notification'
-import Header from './Header'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -39,7 +38,7 @@ const BlogList = () => {
             username={user.username}
           />
         ))
-        .sort((a, b) => a.props.blog.likes - b.props.blog.likes)}
+        .sort((a, b) => b.props.blog.likes - a.props.blog.likes)}
     </div>
   )
 }

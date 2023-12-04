@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { initialiseBlogs } from '../reducers/blogReducer'
 import { useEffect } from 'react'
-import { setUser } from '../reducers/currentUserReducer'
 
 import Blog from './Blog'
 import NewBlogForm from './NewBlogForm'
 import Notification from './Notification'
+import Header from './Header'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -17,17 +17,11 @@ const BlogList = () => {
     dispatch(initialiseBlogs())
   }, [dispatch])
 
-  const handleLogout = (event) => {
-    event.preventDefault()
-    window.localStorage.removeItem('loggedBlogAppUser')
-    dispatch(setUser(null))
-  }
-
   return (
     <div>
-      <h2>blogs</h2>
+      <Header />
       <Notification />
-      <p> {user.name} is logged in <button onClick={handleLogout}>logout</button> </p>
+      <h2>Blogs</h2>
       <NewBlogForm />
       <br></br>
       {blogs

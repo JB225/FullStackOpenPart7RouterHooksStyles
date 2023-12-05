@@ -5,9 +5,11 @@ import { useEffect } from 'react'
 
 import blogService from '../services/blogs'
 import SuccessNotification from './Notification'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +30,8 @@ const LoginForm = () => {
 
     setPassword('')
     setUsername('')
+
+    navigate('/blogs')
   }
 
   return (

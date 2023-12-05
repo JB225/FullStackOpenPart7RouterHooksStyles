@@ -45,6 +45,7 @@ export const increaseLikes = blog => {
       author: blog.author,
       title: blog.title,
       url: blog.url,
+      comments: blog.comments
     }
     const updatedBlogResponse = await blogService.updateBlog( blog.id, updatedBlog )
     dispatch(updateBlog(updatedBlogResponse))

@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <div style={blogStyle}>
-      <Link style={padding} to="/">blogs</Link>
+      <Link style={padding} to="/blogs">blogs</Link>
       <Link style={padding} to="/users">users</Link>
       {<em>{user.name} is logged in <button onClick={handleLogout}>logout</button> </em>}
     </div>

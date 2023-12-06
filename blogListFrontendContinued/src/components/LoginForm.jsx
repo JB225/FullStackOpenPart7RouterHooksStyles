@@ -36,11 +36,11 @@ const LoginForm = () => {
 
   return (
     <div>
-      <h2>Log in to application</h2>
+      <h2>Log In To Application</h2>
       <SuccessNotification />
       <form onSubmit={handleLogin}>
         <div>
-          username{' '}
+          Username{' '}
           <input
             id="username"
             type="text"
@@ -50,7 +50,7 @@ const LoginForm = () => {
           />
         </div>
         <div>
-          password{' '}
+          Password{' '}
           <input
             id="password"
             type="text"

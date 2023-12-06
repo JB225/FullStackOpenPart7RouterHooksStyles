@@ -52,6 +52,15 @@ export const increaseLikes = blog => {
   }
 }
 
+export const addComment = (blog, comment) => {
+  return async dispatch => {
+    const updatedBlog = { ...blog, user: blog.user.id, comments: blog.comments.concat(comment) }
+    const updatedBlogResponse = await blogService.updateBlog(blog.id, updatedBlog)
+    console.log(updatedBlogResponse)
+    dispatch(updateBlog(updatedBlogResponse))
+  }
+}
+
 export const deleteBlog = blogId => {
   return async dispatch => {
     blogService.deleteBlog(blogId)

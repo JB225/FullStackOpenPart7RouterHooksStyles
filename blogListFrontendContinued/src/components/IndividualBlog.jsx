@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { increaseLikes, initialiseBlogs } from '../reducers/blogReducer'
+import { addComment, increaseLikes, initialiseBlogs } from '../reducers/blogReducer'
 import Header from './Header'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 const IndividualBlog = () => {
   const blogs = useSelector(state => state.blogs)
   const dispatch = useDispatch()
-  const [comments, setComments] = useState('')
+  const [comment, setComment] = useState('')
 
   useEffect(() => {
     if (blogs.length === 0) {
@@ -27,8 +27,9 @@ const IndividualBlog = () => {
   }
 
   const handleComments = () => {
-    console.log(comments)
-    setComments('')
+    console.log(comment)
+    dispatch(addComment(blog, comment))
+    setComment('')
   }
 
   return (
@@ -39,7 +40,7 @@ const IndividualBlog = () => {
       <div>{blog.likes} likes <button onClick={handleLikeBlog}>like</button></div>
       <div>added by {blog.author}</div>
       <h3>comments</h3>
-      <input type="text" value={comments} onChange={(e) => setComments(e.target.value)} />
+      <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} />
       <button onClick={handleComments}>add comment</button>
       <ul>
         {blog.comments.map(c => (<li key={c}>{c}</li>) )}

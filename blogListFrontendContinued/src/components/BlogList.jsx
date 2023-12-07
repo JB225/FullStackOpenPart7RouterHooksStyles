@@ -6,6 +6,7 @@ import Blog from './Blog'
 import NewBlogForm from './NewBlogForm'
 import Notification from './Notification'
 import Header from './Header'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -21,18 +22,23 @@ const BlogList = () => {
     <div>
       <Header />
       <Notification />
+      <br></br>
       <h2>Blogs</h2>
+      <br></br>
       <NewBlogForm />
       <br></br>
-      {blogs
-        .map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            username={user.username}
-          />
-        ))
-        .sort((a, b) => b.props.blog.likes - a.props.blog.likes)}
+      <ListGroup>
+        {blogs
+          .map((blog) => (
+            <ListGroup.Item key={blog.id}>
+              <Blog
+                key={blog.id}
+                blog={blog}
+                username={user.username}
+              />
+            </ListGroup.Item>
+          ))}
+      </ListGroup>
     </div>
   )
 }

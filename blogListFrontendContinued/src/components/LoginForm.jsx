@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 import blogService from '../services/blogs'
 import SuccessNotification from './Notification'
 import { useNavigate } from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -34,14 +36,22 @@ const LoginForm = () => {
     navigate('/blogs')
   }
 
+  const divStyle = {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+  }
+
   return (
-    <div>
+    <div style={divStyle}>
+      <br></br>
       <h2>Log In To Application</h2>
+      <br></br>
       <SuccessNotification />
-      <form onSubmit={handleLogin}>
+      <Form onSubmit={handleLogin}>
         <div>
           Username{' '}
-          <input
+          <Form.Control
             id="username"
             type="text"
             value={username}
@@ -51,7 +61,7 @@ const LoginForm = () => {
         </div>
         <div>
           Password{' '}
-          <input
+          <Form.Control
             id="password"
             type="text"
             value={password}
@@ -59,10 +69,11 @@ const LoginForm = () => {
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button id="login-button" type="Submit">
+        <br></br>
+        <Button id="login-button" type="Submit">
           login
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   )
 }

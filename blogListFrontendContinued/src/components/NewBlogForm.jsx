@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
 const NewBlogForm = () => {
   const dispatch = useDispatch()
   const blogFormRef = useRef()
@@ -40,11 +43,10 @@ const NewBlogForm = () => {
   return (
     <div>
       <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
-        <h2>create new</h2>
-        <form onSubmit={handleCreateNewBlog}>
+        <Form onSubmit={handleCreateNewBlog}>
           <div>
-          title:{' '}
-            <input
+          Title:{' '}
+            <Form.Control
               id="title"
               type="text"
               value={title}
@@ -54,8 +56,8 @@ const NewBlogForm = () => {
           </div>
 
           <div>
-          author:{' '}
-            <input
+          Author:{' '}
+            <Form.Control
               id="author"
               type="text"
               value={author}
@@ -65,8 +67,8 @@ const NewBlogForm = () => {
           </div>
 
           <div>
-          url:{' '}
-            <input
+          Url:{' '}
+            <Form.Control
               id="url"
               type="text"
               value={url}
@@ -74,10 +76,11 @@ const NewBlogForm = () => {
               onChange={({ target }) => setURL(target.value)}
             />
           </div>
-          <button id="create-button" type="Submit">
+          <br></br>
+          <Button id="create-button" type="Submit">
           create
-          </button>
-        </form>
+          </Button>
+        </Form>
       </Togglable>
 
     </div>

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Header from './Header'
+import Table from 'react-bootstrap/Table'
 import { useEffect } from 'react'
 import { initialiseUsers } from '../reducers/usersReducer'
 import { Link } from 'react-router-dom'
@@ -15,12 +16,13 @@ const UserList = () => {
   return (
     <div>
       <Header />
-      <h2>Users</h2>
-      <table>
+      <br></br>
+      <h2 className="text-left">Users Table</h2>
+      <Table striped bordered>
         <thead>
           <tr>
-            <th></th>
-            <th>blogs created</th>
+            <th>User</th>
+            <th>Blogs Created</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +33,7 @@ const UserList = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   )
 }
